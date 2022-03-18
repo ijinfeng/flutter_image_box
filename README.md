@@ -11,29 +11,59 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+图片九宫格，大图预览组件
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+* 支持缩放
+* 图片加载提示
+* 接口优化
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+打开`pubspec.yaml`文件，加入依赖：image_box: ^0.0.1
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
+### 传入图片url的数组
 ```dart
-const like = 'sample';
+ImagesBox.url(
+                          urls: imageUrls,
+                          fit: BoxFit.cover,
+                          format4rect: false,
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          padding: const EdgeInsets.all(10),
+                          coverBuilder: (context, index, total) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 100),
+                              child: Align(
+                                alignment: Alignment.topCenter,
+                                child: Text(
+                                  '$index/$total',
+                                  style: TextStyle(color: Colors.white,
+                                  fontSize: 20),
+                                ),
+                              ),
+                            );
+                          })
 ```
 
-## Additional information
+### 传入组件的方式
+```dart
+List<Widget> imageWidgets = [];
+for (int i = 0; i < min(9, imageUrls.length); i++) {
+String imageUrl = imageUrls[i];
+Widget image = Image.network(
+    imageUrl,
+    fit: BoxFit.cover,
+);
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+image = ClipRRect(
+    child: image,
+    borderRadius: BorderRadius.all(Radius.circular(6)),
+);
+imageWidgets.add(image);
+}
+
+ImagesBox(children: imageWidgets);
+```
