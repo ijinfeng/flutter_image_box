@@ -1,6 +1,6 @@
 name: image_box
 description: 九宫格、大图预览
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/ijinfeng/flutter_image_box
 
 environment:
