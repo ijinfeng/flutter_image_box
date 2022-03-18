@@ -101,7 +101,6 @@ class ImagePreviewState extends State<ImagePreview>
           _dismiss(context);
         },
         onPanCancel: () {
-          _changeCoverStateIfNeeded(false);
           _dragEnd(context);
         },
         onPanStart: (DragStartDetails details) {
@@ -120,7 +119,6 @@ class ImagePreviewState extends State<ImagePreview>
           });
         },
         onPanEnd: (DragEndDetails details) {
-          _changeCoverStateIfNeeded(false);
           _dragEnd(context);
         },
       );
@@ -195,7 +193,7 @@ class ImagePreviewState extends State<ImagePreview>
         ],
       );
     }
-    return Material(child: Center(child: current));
+    return Material(color: Colors.transparent, child: Center(child: current));
   }
 
   void _changeCoverStateIfNeeded(bool userInteraction) {
@@ -217,8 +215,10 @@ class ImagePreviewState extends State<ImagePreview>
     double scaleHeight = MediaQuery.of(context).size.height / 2;
     if (_offset.dy >= scaleHeight) {
       // 拖拽超过屏幕1/4位置
+      _changeCoverStateIfNeeded(true);
       _dismiss(context);
     } else {
+      _changeCoverStateIfNeeded(false);
       // 回到原位
       _resetInAnimation = true;
       _initializeRecoverAnimation();
