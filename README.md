@@ -21,7 +21,7 @@ and the Flutter guide for
 
 ## Getting started
 
-打开`pubspec.yaml`文件，加入依赖：image_box: ^0.0.1
+打开`pubspec.yaml`文件，加入依赖：image_box: ^0.0.2
 
 ## Usage
 
